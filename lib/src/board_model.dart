@@ -39,13 +39,16 @@ class BoardModel extends Model {
   /// Refreshes board
   void refreshBoard() {
     if (game.in_checkmate) {
-      onCheckMate(game.turn == chess.Color.WHITE ? PieceColor.White : PieceColor.Black);
-    }
-    else if (game.in_draw || game.in_stalemate || game.in_threefold_repetition || game.insufficient_material) {
-      onDraw();    
-    }
-    else if (game.in_check) {
-      onCheck(game.turn == chess.Color.WHITE ? PieceColor.White : PieceColor.Black);
+      onCheckMate(
+          game.turn == chess.Color.WHITE ? PieceColor.White : PieceColor.Black);
+    } else if (game.in_draw ||
+        game.in_stalemate ||
+        game.in_threefold_repetition ||
+        game.insufficient_material) {
+      onDraw();
+    } else if (game.in_check) {
+      onCheck(
+          game.turn == chess.Color.WHITE ? PieceColor.White : PieceColor.Black);
     }
     notifyListeners();
   }
@@ -59,7 +62,12 @@ class BoardModel extends Model {
       this.whiteSideTowardsUser,
       this.chessBoardController,
       this.enableUserMoves) {
-    chessBoardController?.game = game;
+    if (chessBoardController?.game != null) {
+      game = chessBoardController.game;
+    } else {
+      game = chess.Chess();
+      chessBoardController?.game = game;
+    }
     chessBoardController?.refreshBoard = refreshBoard;
   }
 }
