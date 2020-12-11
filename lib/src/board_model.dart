@@ -4,7 +4,7 @@ import 'package:flutter_chess_board/src/chess_board_controller.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:chess/chess.dart' as chess;
 
-typedef Null MoveCallback(String moveNotation);
+typedef Null MoveCallback(String from, String to);
 typedef Null CheckMateCallback(PieceColor color);
 typedef Null CheckCallback(PieceColor color);
 

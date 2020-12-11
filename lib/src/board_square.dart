@@ -21,6 +21,7 @@ class BoardSquare extends StatelessWidget {
           return model.game.get(squareName) != null
               ? Draggable(
                   child: _getImageToDisplay(size: model.size / 8, model: model),
+                  childWhenDragging: Container(),
                   feedback: _getImageToDisplay(
                       size: (1.2 * (model.size / 8)), model: model),
                   onDragCompleted: () {},
@@ -54,7 +55,9 @@ class BoardSquare extends StatelessWidget {
           }
           if (model.game.turn != moveColor) {
             model.onMove(
-                moveInfo[1] == "P" ? squareName : moveInfo[1] + squareName);
+              moveInfo[0] == "P" ? squareName : moveInfo[0],
+              squareName,
+            );
           }
           model.refreshBoard();
         }),

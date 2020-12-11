@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chess_board/src/chess_board.dart';
+import 'package:flutter_chess_board/flutter_chess_board.dart';
 
 void main() => runApp(new MyApp());
 
@@ -23,6 +23,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  ChessBoardController _chessBoardController1 = new ChessBoardController();
+  ChessBoardController _chessBoardController2 = new ChessBoardController();
+  bool canMove1 = true;
+  bool canMove2 = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,8 +36,11 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             ChessBoard(
-              onMove: (move) {
-                print(move);
+              enableUserMoves: canMove1,
+              onMove: (move1, move2) {
+                print("move1 $move1 -> $move2");
+                _chessBoardController2.makeMove(move1, move2);
+                canMove2 = true;
               },
               onCheck: (color) {
                 print(color);
@@ -42,8 +49,27 @@ class _MyHomePageState extends State<MyHomePage> {
                 print(color);
               },
               onDraw: () {},
-              size: MediaQuery.of(context).size.width,
-              enableUserMoves: true,
+              size: MediaQuery.of(context).size.width / 2,
+              chessBoardController: _chessBoardController1,
+            ),
+
+            ChessBoard(
+              enableUserMoves: canMove2,
+              whiteSideTowardsUser: false,
+              onMove: (move1, move2) {
+                print("move1 $move1 -> $move2");
+                _chessBoardController1.makeMove(move1, move2);
+                canMove1 = true;
+              },
+              onCheck: (color) {
+                print(color);
+              },
+              onCheckMate: (color) {
+                print(color);
+              },
+              onDraw: () {},
+              size: MediaQuery.of(context).size.width / 2,
+              chessBoardController: _chessBoardController2,
             )
           ],
         ),
