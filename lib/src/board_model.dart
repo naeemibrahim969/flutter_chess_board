@@ -34,7 +34,7 @@ class BoardModel extends Model {
   bool enableUserMoves;
 
   /// Creates a logical game
-  chess.Chess game = chess.Chess();
+  chess.Chess game;
 
   /// Refreshes board
   void refreshBoard() {
