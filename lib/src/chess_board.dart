@@ -100,6 +100,8 @@ class ChessBoard extends StatefulWidget {
   /// Size of chessboard
   final double size;
 
+  final double height;
+
   /// Callback for when move is made
   final MoveCallback onMove;
 
@@ -126,6 +128,7 @@ class ChessBoard extends StatefulWidget {
 
   ChessBoard({
     this.size = 200.0,
+    this.height = 400.0,
     this.whiteSideTowardsUser = true,
     @required this.onMove,
     @required this.onCheckMate,
@@ -155,19 +158,19 @@ class _ChessBoardState extends State<ChessBoard> {
         widget.enableUserMoves,
       ),
       child: Container(
-        height: widget.size,
+        height: widget.height,
         width: widget.size,
         child: Stack(
           children: <Widget>[
             Container(
-              height: widget.size,
+              height: widget.height,
               width: widget.size,
               child: _getBoardImage(),
             ),
             //Overlaying draggables/ dragTargets onto the squares
             Center(
               child: Container(
-                height: widget.size,
+                height: widget.height,
                 width: widget.size,
                 child: buildChessBoard(),
               ),
